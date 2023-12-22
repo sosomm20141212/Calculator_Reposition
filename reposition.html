@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <style>
+          #front {
+            height: 25px;
+            background-color: rgb(207, 232, 220);
+            border: 2px solid rgb(79, 185, 227);
+            padding: 10px; border-radius: 5px;
+            width: 30%;
+            text-align: center;
+            margin: 30px auto;
+          }
+          div > div {
+            height: 25px;
+            text-align: center;
+            background-color: rgb(207, 232, 220);
+            border: 2px solid rgb(79, 185, 227);
+            padding: 10px; border-radius: 5px;
+          }
+          .wrapper {
+            display: grid; grid-gap: 10px;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 33% 33% 33%;
+          }
+          #random{
+            width: 100px;
+            height: 30px;
+            padding: 3px 5px;
+            font-weight: bold;
+            color: white;
+            background-color: rgb(244, 131, 131);
+            border: solid 2px rgb(249, 161, 161);
+            border-radius: 5px;
+            cursor: pointer;
+          }
+          #random:hover{
+            background-color: rgb(249, 161, 161);
+            color:  rgb(226, 69, 69);
+          }
+    </style>
+</head>
+<body>
+    <input type="button" id="random" value="자리 배치">
+    <div id="front">칠판</div>
+    <div class="wrapper">
+        <div></div> <div></div> <div></div>
+        <div></div> <div></div> <div></div>
+        <div></div> <div></div> <div></div>
+    </div>
+</body>
+<script>
+    const random = document.getElementById("random");
+    let position = document.querySelectorAll("div > div")
+
+    random.addEventListener("click", (event) => {
+        if(random.value === "자리 배치"){
+            
+            const persons = [
+                '강남구', '남달리', '도레미', 
+                '마부장', '라면인', '박관종',
+                '사람임', '엄청나', '지정석'
+            ];
+            persons.sort(() => Math.random() - 0.5);
+            for(let i=0; i <= persons.length; i++){
+                document.querySelector(
+                    `.wrapper > div:nth-child(${i+1})`)
+                    .textContent = persons[i];
+            }             
+        }
+    });
+</script>
+</html>

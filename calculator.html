@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <script>
+        let displayCurrent = "0";
+        let displyResult = false;
+
+        //연산자 추가
+        function displayInput(value){
+            if(displayCurrent === "0" || displyResult){
+                displayCurrent = value;
+            } else{
+                displayCurrent += value;
+            }
+            displyResult = false;
+            displayUpdate();
+        }
+
+        //디스플레이에 계산 표시
+        function displayUpdate(){
+            const displayElement = document.getElementById("display");
+            displayElement.textContent = displayCurrent;
+        }
+
+        //결과값 계산
+        function calculatorResult(){
+            try{
+                const result = eval(displayCurrent);
+                displayCurrent += " "+ "=" + " " + result.toString();
+                displayUpdate();
+            } catch(error){
+                displayCurrent +=  "\nError";
+                displayUpdate();
+            }
+            displyResult = true;
+        }
+
+        //마지막 입력 지우기
+        function lastDelete(){
+            displayCurrent = displayCurrent.slice(0, -1);
+
+            if(displayCurrent === ""){
+                displayCurrent = "0"
+            }
+            displayUpdate();
+        }
+
+        //디스플레이 전체 지우기
+        function allClear(){
+            displayCurrent = "0";
+            displyResult = false;
+            displayUpdate();
+        }
+    </script>
+    <style>
+        .calculator {
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .display{
+            height: 60px;
+            font-size: 24px;
+            text-align: right;
+            padding: 5px;
+            background-color: beige;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            overflow: auto; 
+        }
+        buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 3fr);
+            gap: 5px;
+        }
+
+        button {
+            width: 70px;
+            height: 60px;
+            background-color: rgb(207, 232, 220);
+            border: 2px solid rgb(79, 185, 227);
+            padding: 10px;
+            margin-bottom: 3px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover{
+            background-color: rgb(150, 199, 175);
+        }
+        #allClear, #back{
+            background-color: rgb(255, 194, 194);
+            font-weight: bold;
+        }
+        #allClear:hover, #back:hover{
+            background-color: rgb(249, 153, 153);
+        }
+        #result{
+            background-color: rgb(157, 217, 240);
+            font-weight: bold;
+        }
+        #result:hover{
+            background-color: rgb(89, 193, 235);
+        }
+    </style>
+</head>
+<body>
+    <div class = "calculator">
+        <div class = "display" id="display"></div>
+        <div class = "buttons">
+            <button onclick="allClear()" id="allClear">AC</button> 
+            <button onclick="lastDelete()" id="back">Back</button> 
+            <button onclick="displayInput('(')">(</button> 
+            <button onclick="displayInput(')')">)</button> 
+            
+
+            <button onclick="displayInput('7')">7</button> 
+            <button onclick="displayInput('8')">8</button> 
+            <button onclick="displayInput('9')">9</button> 
+            <button onclick="displayInput('/')">/</button>
+
+            <button onclick="displayInput('4')">4</button> 
+            <button onclick="displayInput('5')">5</button> 
+            <button onclick="displayInput('6')">6</button> 
+            <button onclick="displayInput('*')">X</button>
+
+            <button onclick="displayInput('1')">1</button> 
+            <button onclick="displayInput('2')">2</button> 
+            <button onclick="displayInput('3')">3</button> 
+            <button onclick="displayInput('-')">-</button>
+        
+            <button onclick="displayInput('0')">0</button> 
+            <button onclick="displayInput('.')">.</button> 
+            <button onclick="calculatorResult()" id="result">=</button>
+            <button onclick="displayInput('+')">+</button>
+        </div>
+    </div>
+</body>
+</html>
